@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Square Takehome Project</string>
+    <string name="employee_list_empty_message">No employees found</string>
+    <string name="employee_list_error_message">Something went wrong</string>
+    <string name="employee_list_fragment">Employee List Fragment</string>
+    <string name="employee_photo_content_description">Employee Photo</string>
+</resources>
