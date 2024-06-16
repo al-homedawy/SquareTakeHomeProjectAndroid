@@ -21,6 +21,9 @@ class EmployeeListViewModel @Inject constructor(
 
     fun getEmployees() {
         viewModelScope.launch {
+            mutableViewState.emit(
+                value = EmployeeListViewState.LoadingState
+            )
             try {
                 val viewState = validateViewState(
                     dataState = repository.getEmployees()

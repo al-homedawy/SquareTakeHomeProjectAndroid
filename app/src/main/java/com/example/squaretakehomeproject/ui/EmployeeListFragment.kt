@@ -48,6 +48,9 @@ class EmployeeListFragment : Fragment() {
     private fun bindView() = with(viewBinding) {
         employeeList.adapter = employeeListAdapter
         lifecycleScope.launch {
+            swipeRefreshLayout.setOnRefreshListener {
+                viewModel.getEmployees()
+            }
             viewModel.getEmployees()
             viewModel.viewState.collect { viewState ->
                 when (viewState) {
@@ -63,14 +66,15 @@ class EmployeeListFragment : Fragment() {
     private fun switchToEmptyState() = with(viewBinding) {
         emptyMessage.isVisible = true
         errorMessage.isVisible = false
-        employeeList.isVisible = false
+        swipeRefreshLayout.isVisible = false
+        swipeRefreshLayout.isRefreshing = false
         progressBar.isVisible = false
     }
 
     private fun switchToLoadingState() = with(viewBinding) {
         emptyMessage.isVisible = false
         errorMessage.isVisible = false
-        employeeList.isVisible = false
+        swipeRefreshLayout.isVisible = false
         progressBar.isVisible = true
     }
 
@@ -79,7 +83,8 @@ class EmployeeListFragment : Fragment() {
     ) = with(viewBinding) {
         emptyMessage.isVisible = false
         errorMessage.isVisible = true
-        employeeList.isVisible = false
+        swipeRefreshLayout.isVisible = false
+        swipeRefreshLayout.isRefreshing = false
         progressBar.isVisible = false
 
         Toast.makeText(
@@ -94,7 +99,8 @@ class EmployeeListFragment : Fragment() {
     ) = with(viewBinding) {
         emptyMessage.isVisible = false
         errorMessage.isVisible = false
-        employeeList.isVisible = true
+        swipeRefreshLayout.isVisible = true
+        swipeRefreshLayout.isRefreshing = false
         progressBar.isVisible = false
 
         employeeListAdapter.submitList(
